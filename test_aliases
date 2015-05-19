@@ -1,0 +1,5 @@
+#!/bin/bash
+
+alias brails="bundle exec rails"
+alias brspec="bundle exec rspec"
+alias brake="bundle exec rake"
