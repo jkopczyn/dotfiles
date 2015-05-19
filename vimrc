@@ -1,5 +1,5 @@
 "should be invoked from ~/.vimrc like this:
-"source ~/Code/vimrc/.vimrc
+"source ~/Code/dotfiles/.vimrc
 "or substitute path to repo with ~/Code/
 
 set nocompatible              " be iMproved, required

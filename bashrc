@@ -3,8 +3,8 @@
 #a git-stored supplement for ~/.bashrc
 #should be kept normally in ~/Code/bashrc
 #~/.bashrc should include this snippet
-#if [ -f ~/Code/bashrc/.bashrc ]; then
-#  . ~/Code/bashrc/.bashrc
+#if [ -f ~/Code/dotfiles/.bashrc ]; then
+#  . ~/Code/dotfiles/.bashrc
 #fi
 
 # If not running interactively, don't do anything
