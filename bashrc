@@ -61,4 +61,4 @@ alias gitmakeremote="bash $HOME/Code/dotfiles/gitmakeremote.sh"
 
 #enable ssh in the background, mainly for git
 eval "$(ssh-agent -s)"
-
+eval "$(ssh-add ~/.ssh/id_rsa)"
