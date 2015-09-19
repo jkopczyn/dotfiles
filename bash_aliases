@@ -35,7 +35,7 @@ alias gph="git push heroku master"
 
 alias ptex="pdflatex -interaction scrollmode"
 #for rapid applications
-alias cover="pdflatex -interaction scrollmode JacobKopczynskiCoverLetter.tex"
+alias cover="pdflatex -interaction scrollmode JacobKopczynskiCoverLetterGeneric.tex && pdflatex -interaction scrollmode JacobKopczynskiCoverLetter.tex"
 
 if [ -f ~/Code/bashrc/test_aliases ]; then
   . ~/Code/bashrc/test_aliases
