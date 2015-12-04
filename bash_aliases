@@ -6,6 +6,8 @@ alias reset='printf "\ec"'
 
 alias irb='pry'
 alias be="bundle exec"
+alias brake="bundle exec rake"
+alias brails="bundle exec rails"
 alias ber="bundle exec rspec"
 
 alias chrome="google-chrome"
