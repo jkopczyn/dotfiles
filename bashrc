@@ -1,10 +1,10 @@
 #!/bin/bash
 
 #a git-stored supplement for ~/.bashrc
-#should be kept normally in ~/Code/bashrc
+#should be kept normally in ~/bin/bashrc
 #~/.bashrc should include this snippet
-#if [ -f ~/Code/dotfiles/bashrc ]; then
-#  . ~/Code/dotfiles/bashrc
+#if [ -f ~/bin/dotfiles/bashrc ]; then
+#  . ~/bin/dotfiles/bashrc
 #fi
 
 # If not running interactively, don't do anything
@@ -39,8 +39,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-if [ -f ~/Code/dotfiles/bash_aliases ]; then
-    . ~/Code/dotfiles/bash_aliases
+if [ -f ~/bin/dotfiles/bash_aliases ]; then
+    . ~/bin/dotfiles/bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -57,7 +57,7 @@ fi
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 #macro for quick git initialization
-alias gitmakeremote="bash $HOME/Code/dotfiles/gitmakeremote.sh"
+alias gitmakeremote="bash $HOME/bin/dotfiles/gitmakeremote.sh"
 
 #enable ssh in the background, mainly for git
 eval "$(ssh-agent -s)"

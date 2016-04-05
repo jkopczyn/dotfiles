@@ -12,10 +12,6 @@ alias ber="bundle exec rspec"
 
 alias chrome="google-chrome"
 
-#Useful for single-author projects written on a shared account, as in aA
-#Very specific use-case, but saves a great deal of time there
-alias fixauthorship="git filter-branch -f --env-filter \"GIT_AUTHOR_NAME='Jacob Kopczynski'; GIT_AUTHOR_EMAIL='ja.kopczynski@gmail.com'; GIT_COMMITTER_NAME='Jacob Kopczynski'; GIT_COMMITTER_EMAIL='ja.kopczynski@gmail.com';\" HEAD"
-
 backbonegenerate() {
   bundle exec rails g backbone:scaffold "$@" --javascript
 }
@@ -36,9 +32,7 @@ alias gitp="git push"
 alias gph="git push heroku master"
 
 alias ptex="pdflatex -interaction scrollmode"
-#for rapid applications
-alias cover="pdflatex -interaction scrollmode JacobKopczynskiCoverLetterGeneric.tex && pdflatex -interaction scrollmode JacobKopczynskiCoverLetter.tex"
 
-if [ -f ~/Code/bashrc/test_aliases ]; then
-  . ~/Code/bashrc/test_aliases
+if [ -f ~/bin/bashrc/test_aliases ]; then
+  . ~/bin/bashrc/test_aliases
 fi
