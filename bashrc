@@ -55,10 +55,9 @@ if ! shopt -oq posix; then
 fi
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PS1="\[\e[1;32m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]$(__git_ps1_yelp
+"\[\e[1;36m\] %s\[\e[0;39m\]")\$"
+
 
 #macro for quick git initialization
 alias gitmakeremote="bash $HOME/bin/dotfiles/gitmakeremote.sh"
-
-#enable ssh in the background, mainly for git
-eval "$(ssh-agent -s)"
-eval "$(ssh-add ~/.ssh/id_rsa)"
