@@ -1,10 +1,10 @@
 #!/bin/bash
 
 #a git-stored supplement for ~/.bashrc
-#should be kept normally in ~/bin/bashrc
+#should be kept normally in ~/dotfiles/bashrc
 #~/.bashrc should include this snippet
-#if [ -f ~/bin/dotfiles/bashrc ]; then
-#  . ~/bin/dotfiles/bashrc
+#if [ -f ~/dotfiles/bashrc ]; then
+#  . ~/dotfiles/bashrc
 #fi
 
 # If not running interactively, don't do anything
@@ -12,6 +12,9 @@ case $- in
     *i*) ;;
       *) return;;
 esac
+
+#set up fasd
+eval "$(fasd --init auto)"
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -37,8 +40,8 @@ alias l='ls -CF'
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-if [ -f ~/bin/dotfiles/bash_aliases ]; then
-    . ~/bin/dotfiles/bash_aliases
+if [ -f ~/dotfiles/bash_aliases ]; then
+    . ~/dotfiles/bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -53,8 +56,11 @@ if ! shopt -oq posix; then
 fi
 
 #export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-#export PS1="\[\e[1;32m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]$(__git_ps1_yelp"\[\e[1;36m\] %s\[\e[0;39m\]")\$"
 
+export EDITOR='vim'
 
 #macro for quick git initialization
 alias gitmakeremote="bash $HOME/dotfiles/gitmakeremote.sh"
+
+#for quick uparrow-enter tmuxen
+history -s 'tmux attach -d'

@@ -4,25 +4,6 @@
 
 set nocompatible              " be iMproved, required
 
-"Vundle 
-" the couple plugins I want for now
-" long term I don't intend to keep them
-
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
-
-Plugin 'maksimr/vim-jsbeautify'
-Plugin 'pangloss/vim-javascript'
-"plugins needed for now
-
-call vundle#end()            " required
-filetype plugin indent on    " required
-"end Vundle
-
-syntax on
-
-set background=dark
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2                    "set default indenting to 2 spaces
@@ -37,7 +18,8 @@ set number                          "show the line number of the one i'm on
 set textwidth=80
 set colorcolumn=81                  "show the 80 char rule
 set laststatus=2
-
+set ignorecase
+set smartcase
 
 "hopefully make backspace work
 set backspace=indent,eol,start
@@ -67,10 +49,3 @@ let g:netrw_liststyle=3
 "for switching to big windows and back
 nmap te :tabedit %<CR>
 nmap td :tabclose<CR>
-
-" configure syntastic syntax checking to check on open as well as save
-let g:syntastic_check_on_open=1
-let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
-let g:syntastic_javascript_checkers = ['jsxhint']
-
-
