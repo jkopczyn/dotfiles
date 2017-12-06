@@ -61,6 +61,3 @@ export EDITOR='vim'
 
 #macro for quick git initialization
 alias gitmakeremote="bash $HOME/dotfiles/gitmakeremote.sh"
-
-#for quick uparrow-enter tmuxen
-history -s 'tmux attach -d'

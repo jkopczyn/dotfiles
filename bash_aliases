@@ -67,8 +67,12 @@ alias ru="repo upload"
 alias rr="repo rebase"
 alias rs="repo sync"
 alias rsu="repo sync; repo rebase; repo upload ."
+alias rsu.="repo sync .; repo rebase .; repo upload ."
 alias rco="repo checkout"
 alias rb="repo branch"
+
+alias ta="tmux attach -d"
+alias tm="tmux"
 
 alias gph="git push heroku master"
 

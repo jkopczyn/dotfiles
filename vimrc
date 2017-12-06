@@ -16,7 +16,10 @@ set noswapfile
 set relativenumber                  "set relative numberlines
 set number                          "show the line number of the one i'm on
 set textwidth=80
-set colorcolumn=81                  "show the 80 char rule
+"show the 80 char rule
+set colorcolumn=81
+"but not in ugly red
+highlight ColorColumn ctermbg=Black
 set laststatus=2
 set ignorecase
 set smartcase
