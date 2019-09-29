@@ -64,9 +64,11 @@ export EDITOR='vim'
 #macro for quick git initialization
 alias gitmakeremote="bash $HOME/dotfiles/gitmakeremote.sh"
 
-/usr/local/google/home/jkop/chops/infra/go/env.py > /usr/local/google/home/jkop/chops/infra/go/env.sh
-source /usr/local/google/home/jkop/chops/infra/go/env.sh
-rm /usr/local/google/home/jkop/chops/infra/go/env.sh
+if [ -f /usr/local/google/home/jkop/chops ]; then
+	/usr/local/google/home/jkop/chops/infra/go/env.py > /usr/local/google/home/jkop/chops/infra/go/env.sh
+	source /usr/local/google/home/jkop/chops/infra/go/env.sh
+	rm /usr/local/google/home/jkop/chops/infra/go/env.sh
+fi
 
 #start or join tmux session
 mux

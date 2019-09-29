@@ -1,6 +1,6 @@
 "should be invoked from ~/.vimrc like this:
-"source ~/bin/dotfiles/vimrc
-"or substitute path to repo with ~/bin/
+"source ~/dotfiles/vimrc
+"or substitute "~' with the true path to the repo
 
 set nocompatible    " be iMproved, required
 
