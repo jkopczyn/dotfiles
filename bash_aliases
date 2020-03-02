@@ -9,6 +9,20 @@ function cda {
 }
 alias cd="cda"
 
+function fAA {
+  for d in $(find . -type d -print); do
+    fasd -A $d/*
+  done
+}
+
+function faa {
+  find . -type d -print0 | xargs -0 fasd -A;
+}
+
+function fdd {
+  find . -type d -print0 | xargs -0 fasd -D;
+}
+
 alias dotfiles='vim ~/dotfiles/bash_aliases && source ~/dotfiles/bash_aliases'
 
 function git-branch-last-commit {
@@ -34,26 +48,48 @@ alias hrake="heroku run rake"
 alias ga="git add"
 alias ga.="git add ."
 alias gaa="git add -A"
-alias gaas="git add -A ; git status"
-alias gas="git add -A ; git status"
+  alias gaac="git add -A; git commit"
+  alias gago="git add -A descpb.bin go/; gis"
+  alias ggago="./generate.sh; git add -A descpb.bin go/; gis"
 alias gbd="git branch -d"
-alias gcu="git cl upload"
-alias gcd="git cl description"
-alias gcm="git cl description"
+  alias gbD="git branch -D"
 alias gca="git cl archive"
+alias gcu="git cl upload"
+alias gcup="git cl upstream"
+  # p as in parent
+  alias gcp="git cl upstream"
+alias gcm="git cl description"
+  alias gcd="git cl description"
 alias gd="git diff"
 alias gdh="git diff HEAD -- "
-alias gdh^="git diff HEAD^"
+  alias gdh^="git diff HEAD^ --"
+  alias gdh^^="git diff HEAD^^ --"
 alias gdhn="git diff HEAD^ --relative --name-only -- "
 alias gf="git fetch"
+alias ggg="gap; gicas; gcu"
+  alias gpgg="gap; gicas; gcu"
+  alias gagg="gaa; gicas; gcu"
 alias gis="git status"
+  alias giis="git status"
+  alias gias="git status"
 alias gsh="git show"
 alias gp="git push"
 alias gpl="git pull"
+alias ggr="gap; gicas; ru."
+  alias gpgr="gap; gicas; ru."
+  alias gagr="gaa; gicas; ru."
 alias gst="git stash"
 alias gsa="git stash apply"
 alias gsl="git stash list"
 alias g="git"
+alias reom="rebi origin/master"
+  alias rsom="grh origin/master"
+alias remm="rebi m/master"
+  alias rsmm="grh m/master"
+
+alias gvl="go vet; golint"
+
+alias ggaa="./generate.sh; git add -A"
 
 function gsp {
   case $1 in
@@ -75,39 +111,44 @@ function vgdh {
   vim $args;
 }
 
+function gdn {
+  if [ -z "$*" ]; then
+    git diff --name-only --relative;
+  else
+    git diff "$*" --name-only --relative;
+  fi
+}
+
 function gd^ { git diff "$1"^ "$@"; }
 alias gap="git add -p"
-alias gb="git branch"
-alias gba="git-branch-last-commit"
+  alias gao="git add -p"
+alias gb="git branch -v"
 alias gco="git checkout"
-alias gc^="git checkout HEAD^"
-alias gco^="git checkout HEAD^"
-alias gdn="git diff --name-only -- "
+  alias gc="git checkout"
+  alias gc^="git checkout HEAD^"
+  alias gco^="git checkout HEAD^"
+  alias gcom="git checkout origin/master || git checkout m/master"
+  alias gcob="git checkout -b"
 alias gim="git commit -m"
 alias gir="git reset"
 alias gl="git log"
 alias gl1="git log -1"
-alias gl2="git log -2"
-alias gl3="git log -3"
-alias gl4="git log -4"
-alias gl5="git log -5"
-alias gl6="git log -6"
-alias gl7="git log -7"
-alias gl8="git log -8"
-alias gl9="git log -9"
+  alias gl2="git log -2"
+  alias gl3="git log -3"
+  alias gl4="git log -4"
+  alias gl5="git log -5"
+  alias gl6="git log -6"
+  alias gl7="git log -7"
+  alias gl8="git log -8"
+  alias gl9="git log -9"
 alias gpu="git push --set-upstream origin master"
 alias gr="git reset"
-alias gra="git rebase --abort"
-alias grc="git rebase --continue"
 alias grh="git reset --hard"
 alias grs="git restore --staged"
 alias gic="git commit"
-alias gc="git commit"
 alias gica="git commit --amend"
 alias gcas="git commit --amend --no-edit"
-alias gcaq="git commit --amend --no-edit"
 alias gicas="git commit --amend --no-edit"
-alias gicaq="git commit --amend --no-edit"
 
 alias gcla="git commit --amend --no-edit; git cl description"
 
@@ -116,6 +157,11 @@ function gsy {
   do ( echo $i; cd $i/..; git pull; )
   done
 }
+
+alias cd.="cd .."
+  alias cd.1="cd .."
+  alias cd.2="cd ../.."
+  alias cd.3="cd ../../.."
 
 alias rebase="git rebase"
 alias reb="git rebase"
@@ -149,7 +195,6 @@ alias chops="source ~/chops_venv/bin/activate; eval \`~/chops/infra/go/env.py\`"
 
 alias chopsupdate="gclient recurse git rebase-update"
 alias gpla="gclient recurse git rebase-update"
-alias chpla="gclient recurse git rebase-update"
 alias updall="gclient recurse git rebase-update"
 
 function bcm() {
@@ -197,13 +242,13 @@ alias ta="tmx2 attach -d || tmux attach -d || tm"
 alias tm="tmx2 || tmux"
 function mux {
   if [ ! "$TMUX" ]; then
-    if [ -d ~/chromiumos ]; then
-      cd ~/chromiumos
-    else cd ~;
-    fi
     ta
   fi
 }
+
+alias rtr="./recipes.py test run"
+alias rtt="./recipes.py test train"
+alias rtta="./recipes.py test train; git add *.json *.md"
 
 alias chops='source ~/chops_venv/bin/activate; eval `~/chops/infra/go/env.py`'
 
@@ -219,6 +264,8 @@ pythonmakedir() {
     touch "$@/__init__.py"
 }
 alias pmd="pythonmakedir"
+
+alias ks="ls"
 
 if [ -f ~/bin/bashrc/test_aliases ]; then
   . ~/bin/bashrc/test_aliases

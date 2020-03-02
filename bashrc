@@ -28,7 +28,13 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+# Patches for tmux
 alias fixssh='export $(tmux show-environment | grep \^SSH_AUTH_SOCK=)'
+# share history between concurrent shells
+shopt -s histappend
+export HISTSIZE=100000
+export HISTFILESIZE=100000
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # some more ls aliases
 alias ll='ls -alF'

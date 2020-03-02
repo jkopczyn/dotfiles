@@ -45,10 +45,14 @@ map , <C-W>5<
 map <C-+> <C-W>+
 map <C--> <C-W>-
 
-"toggle numbers for printing or mouse copy-paste
-nmap <C-p> :set invrelativenumber invnumber<CR>
-"C-p for 'print', also C-n for 'number'
+" map Ctrl+I to increment, replacing Ctrl+A which is used for tmux
+map <C-I> <C-A>
+
+"toggle numbers for printing or mouse copy-paste C-n for 'number'
 nmap <C-n> :set invrelativenumber invnumber<CR>
+
+"toggle pastemode C-p for 'paste'
+nmap <C-p> :set invpaste<CR>
 
 " check for updates to .vimrc
 augroup myvimrc
