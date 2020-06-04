@@ -68,3 +68,6 @@ nmap te :tabedit %<CR>
 nmap td :tabclose<CR>
 
 cnoreabbrev vres vertical resize
+
+let g:ycm_confirm_extra_conf = 1
+let g:ycm_extra_conf_globlist = ["/usr/local/google/home/jkop/.ycm_extra_conf.py"]

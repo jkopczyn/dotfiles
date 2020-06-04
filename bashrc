@@ -7,11 +7,19 @@
 #  . ~/dotfiles/bashrc
 #fi
 
+#echo 'dotfiles/bashrc being executed'
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
       *) return;;
 esac
+
+pathadd() {
+    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+        PATH="${PATH:+"$PATH:"}$1"
+    fi
+}
 
 #set up fasd
 eval "$(fasd --init auto)"
@@ -60,10 +68,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-#export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
-export GOPATH="$GOPATH:/usr/local/google/home/jkop/chromiumos/infra/lucifer"
 
 export EDITOR='vim'
 
