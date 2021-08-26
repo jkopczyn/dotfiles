@@ -71,5 +71,23 @@ case $- in
       *) return;;
 esac
 
+### Move to ~/Code if starting in ~
+# [ ! EXPR ]: boolean negation
+# [ ( EXPR ) ]: evaluates EXPR before combining it with anything else. Creates a subshell.
+#     [ { EXPR } ]: same except it doesn't create a subshell
+# [ STRING1 == STRING2 ]: true if strings are equal.
+#     [ STRING1 = STRING2 ] is equivalent; POSIX specifies single-=
+# [ -n STRING]: true if length of STRING is nonzero
+# ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ] }: trigger if probably outside Tmux.
+#       (tmux sets $TERM to screen AND sets the $TMUX envvar) -> negate
+# [ `pwd` = "/home/jkop" ]: if shell opened at ~
+#     default shells will change dir but not nondefault ones
+if ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; } then
+  if [ `pwd` = "/home/jkop" ]; then
+    echo "present"
+    cd Code
+  fi
+fi
+
 #start or join tmux session
 mux
