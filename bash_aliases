@@ -31,15 +31,32 @@ function fdd {
 # find name
 alias fn='fdfind'
 
-function setallupstreams {
-  for branch in $(git for-each-ref --format='%(refname:lstrip=2)' refs/heads/); do
-    git checkout $branch
-    UP=$(git cl upstream)
-    if [ "$UP" = "refs/remotes/origin/master" ]; then
-      git cl upstream origin/master
-    fi
-  done
-}
+# git cl aliases, no longer in use
+# function setallupstreams {
+#   for branch in $(git for-each-ref --format='%(refname:lstrip=2)' refs/heads/); do
+#     git checkout $branch
+#     UP=$(git cl upstream)
+#     if [ "$UP" = "refs/remotes/origin/master" ]; then
+#       git cl upstream origin/master
+#     fi
+#   done
+# }
+# alias gca="git cl archive"
+# alias gcu="git cl upload"
+# alias gcup="git cl upstream"
+#   # p as in parent
+#   alias gcp="git cl upstream"
+#   alias gcupom="git cl upstream origin/master; gb"
+#   alias gcupmm="git cl upstream cros/master; gb"
+#   alias gcpom="git cl upstream origin/master; gb"
+#   alias gcpmm="git cl upstream cros/master; gb"
+#   alias gcupma="setallupstreams"
+# alias gcm="git cl description"
+#   alias gcd="git cl description"
+# alias gct="git cl presubmit"
+#   alias gcta="git cl presubmit --all --parallel"
+# alias gcla="git commit --amend --no-edit; git cl description"
+alias gcup="git branch -u"
 
 alias dotfiles='vim ~/dotfiles/bash_aliases && source ~/dotfiles/bash_aliases'
   alias dotf='dotfiles'
@@ -73,27 +90,17 @@ alias gaa="git add -A"
   alias gago="git add -A descpb.bin go/; gis"
 alias gbd="git branch -d"
   alias gbD="git branch -D"
-alias gca="git cl archive"
-alias gcu="git cl upload"
-alias gcup="git cl upstream"
-  # p as in parent
-  alias gcp="git cl upstream"
-  alias gcupom="git cl upstream origin/master; gb"
-  alias gcupmm="git cl upstream cros/master; gb"
-  alias gcpom="git cl upstream origin/master; gb"
-  alias gcpmm="git cl upstream cros/master; gb"
-  alias gcupma="setallupstreams"
-alias gcm="git cl description"
-  alias gcd="git cl description"
 alias gd="git diff"
 alias gdh="git diff HEAD -- "
   alias gdh^="git diff HEAD^ --"
   alias gdh^^="git diff HEAD^^ --"
   alias gdho="git diff HEAD" # o as in options
+  alias gdho^="git diff HEAD^" # o as in options
 alias gdm="git diff master --"
   alias gdom="git diff origin/master --"
   alias gdmm="git diff m/master --"
 alias gdhn="git diff HEAD^ --relative --name-only -- "
+    alias gdhhn="git diff HEAD --relative --name-only -- "
 alias gf="git fetch"
 alias ggg="gap; gicas; gcu"
   alias gpgg="gap; gicas; gcu"
@@ -104,6 +111,7 @@ alias gis="git status"
   alias gs="git status"
 alias gsh="git show"
 alias gp="git push"
+	alias gpf="git push --no-verify"
 alias gpl="git pull"
 alias ggr="gap; gicas; ru."
   alias gpgr="gap; gicas; ru."
@@ -113,8 +121,6 @@ alias gst="git stash"
 alias gsa="git stash apply"
 alias gsl="git stash list"
 alias gss="git stash show"
-alias gct="git cl presubmit"
-  alias gcta="git cl presubmit --all --parallel"
 alias reom="rebi origin/master"
 alias remm="rebi m/master"
 
@@ -124,15 +130,18 @@ alias gvl="go vet; golint"
 alias ggaa="./generate.sh; git add -A"
   alias gga="./generate.sh; git add -A go/; git add -A descpb.bin; gis"
 
+#function gsp {
+#  case $1 in
+#    +([[:digit:]]) )
+#      git stash pop "stash@{$1}"
+#      ;;
+#    *)
+#      git stash pop $1
+#      ;;
+#  esac
+#}
 function gsp {
-  case $1 in
-    +(0-9))
-      git stash pop "stash@{$1}"
-      ;;
-    *)
-      git stash pop $1
-      ;;
-  esac
+	git stash pop $1
 }
 
 function vgh {
@@ -148,12 +157,22 @@ function vgdh {
   args='';
   while IFS= read file; do
     args="${args} $file";
-  done < <(git diff HEAD^ --relative --name-only -- | grep -v ".*.\(json\|md\)")
+  done < <(gdhn | grep -v ".*.\(json\|md\)")
   printf '%q\n' "$args";
   vim $args;
 }
 
-function gd^ { git diff "$1"^ "$@"; }
+function vgdhh {
+  args='';
+  while IFS= read file; do
+    args="${args} $file";
+  done < <(gdhhn | grep -v ".*.\(json\|md\)")
+  printf '%q\n' "$args";
+  vim $args;
+}
+
+function  gd^ { git diff "$1"^ "$@"; }
+function gdn^ { git diff "$1"^ --relative --name-only "$@"; }
 function gd^^ { git diff "$1"^^ "$@"; }
 alias gap="git add -p"
   alias gao="git add -p"
@@ -178,17 +197,20 @@ alias gl1="git log -1"
   alias gl7="git log -7"
   alias gl8="git log -8"
   alias gl9="git log -9"
-alias gpu="git push --set-upstream origin master"
+function gpu {
+  git push -u origin $(git symbolic-ref --short HEAD) "$@"
+}
+	alias gpuf="gpu --no-verify"
 alias gr="git reset"
 alias grh="git reset --hard"
   alias grhm="grh origin/master || grh m/master"
   alias grh^="grh HEAD^"
 alias grs="git restore --staged"
+  alias grs.="git restore --staged ."
 alias gic="git commit -c@ --reset-author"
+  alias gicf="git commit --no-verify"
 alias gica="git commit --amend"
 alias gicas="git commit --amend --no-edit"
-
-alias gcla="git commit --amend --no-edit; git cl description"
 
 function gsy {
   for i in */.git
@@ -298,8 +320,8 @@ function repo_rebase_all() {
 }
 alias rra="repo_rebase_all"
 
-alias ta="tmx2 attach -d || tm"
-alias tm="tmx2"
+alias ta="tmux attach -d || tm"
+alias tm="tmux"
 function mux {
   if [ ! "$TMUX" ]; then
     ta
@@ -347,10 +369,42 @@ function vl {
 }
 alias vl=vl
 
+# fasd
+alias a='fasd -a'        # any
+alias s='fasd -si'       # show / search / select
+alias d='fasd -d'        # directory
+alias f='fasd -f'        # file
+alias sd='fasd -sid'     # interactive directory selection
+alias sf='fasd -sif'     # interactive file selection
+alias z='fasd_cd -d'     # cd, same functionality as j in autojump
+alias zz='fasd_cd -d -i' # cd with interactive selection
 alias c='f -e cat'
 alias v='f -e vim'
 alias p='d -e pushd'
 alias l='d -e "ls --color=always"'
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+
+function vact {
+  source ~/venvs/`basename ${PWD}`/bin/activate
+}
+function vcreate {
+  virtualenv ~/venvs/`basename ${PWD}`
+}
+
+# assurance psql for t_d_s
+function apsql {
+    cd ~/Code/twilio_dialing_service
+    vact
+    source chalicelib/config/.env-prod
+    source chalicelib/config/.secrets-prod
+    export PGPASSWORD=$DB_PASSWORD;
+    psql --host=$DB_HOST --port=$DB_PORT --username=$DB_USER --dbname=$DB_NAME
+}
 
 pythonmakedir() {
     mkdir "$@"

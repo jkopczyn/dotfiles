@@ -7,7 +7,7 @@ set nocompatible    " be iMproved, required
 set tabstop=4
 set softtabstop=0
 set shiftwidth=4    "set default indenting to 2 spaces
-set noexpandtab
+set expandtab
 set autoindent
 set noimdisable
 set iminsert=0

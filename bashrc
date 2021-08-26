@@ -9,17 +9,15 @@
 
 #echo 'dotfiles/bashrc being executed'
 
-# If not running interactively, don't do anything
-case $- in
-    *i*) ;;
-      *) return;;
-esac
-
 pathadd() {
     if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
         PATH="${PATH:+"$PATH:"}$1"
     fi
 }
+
+
+# Patches for tmux
+alias fixssh='export $(tmux show-environment | grep \^SSH_AUTH_SOCK=)'
 
 #set up fasd
 eval "$(fasd --init auto)"
@@ -35,19 +33,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
-
-# Patches for tmux
-alias fixssh='export $(tmux show-environment | grep \^SSH_AUTH_SOCK=)'
-# share history between concurrent shells
-shopt -s histappend
-export HISTSIZE=100000
-export HISTFILESIZE=100000
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
-
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -79,6 +64,12 @@ if [ -f /usr/local/google/home/jkop/chops ]; then
 	source /usr/local/google/home/jkop/chops/infra/go/env.sh
 	rm /usr/local/google/home/jkop/chops/infra/go/env.sh
 fi
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 
 #start or join tmux session
 mux
