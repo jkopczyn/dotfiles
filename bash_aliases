@@ -13,6 +13,10 @@ function rgmsg {
   rg "message $@"
 }
 alias rgn="rg -l"
+function vrg {
+  vim `rg -l $@`
+}
+alias vrgn="vrg"
 
 function fAA {
   for d in $(find . -type d -print); do
@@ -102,6 +106,7 @@ alias gdm="git diff master --"
 alias gdhn="git diff HEAD^ --relative --name-only -- "
     alias gdhhn="git diff HEAD --relative --name-only -- "
 alias gf="git fetch"
+  alias gfo="git fetch origin"
 alias ggg="gap; gicas; gcu"
   alias gpgg="gap; gicas; gcu"
   alias gagg="gap; gicas; gcu"
@@ -120,9 +125,13 @@ alias ggr="gap; gicas; ru."
 alias gst="git stash"
 alias gsa="git stash apply"
 alias gsl="git stash list"
-alias gss="git stash show"
+alias gss="git stash show -p"
+alias gsd="git stash drop"
 alias reom="rebi origin/master"
 alias remm="rebi m/master"
+alias gm="git merge"
+  alias gmm="git merge master"
+  alias gmom="git merge origin/master"
 
 alias gvl="go vet; golint"
   alias gv="go vet"
@@ -157,7 +166,7 @@ function vgdh {
   args='';
   while IFS= read file; do
     args="${args} $file";
-  done < <(gdhn | grep -v ".*.\(json\|md\)")
+  done < <(gdhn | grep -v ".*.\(json\\\|md\)")
   printf '%q\n' "$args";
   vim $args;
 }
@@ -171,15 +180,17 @@ function vgdhh {
   vim $args;
 }
 
-function  gd^ { git diff "$1"^ "$@"; }
-function gdn^ { git diff "$1"^ --relative --name-only "$@"; }
-function gd^^ { git diff "$1"^^ "$@"; }
+function gdn { git diff "$1" --relative --name-only; }
+function  gd^ { git diff "$1"^ "${@:1}"; }
+function gdn^ { git diff "$1"^ --relative --name-only "${@:1}"; }
+function gd^^ { git diff "$1"^^ "${@:1}"; }
 alias gap="git add -p"
   alias gao="git add -p"
 alias gb="git branch -v"
 alias gco="git checkout"
   alias gc="git checkout"
   alias gc.="git checkout ."
+  alias gcm="git -c advice.detachedHead=false checkout master"
   alias gc^="git checkout HEAD^"
   alias gco^="git checkout HEAD^"
   alias gcom="git -c advice.detachedHead=false checkout origin/master || git -c advice.detachedHead=false checkout m/master || git -c advice.detachedHead=false checkout cros/master"
@@ -188,6 +199,7 @@ alias gco="git checkout"
 alias gim="git commit -m"
 alias gir="git reset"
 alias gl="git log"
+  alias glp="git log -p"
 alias gl1="git log -1"
   alias gl2="git log -2"
   alias gl3="git log -3"
@@ -261,8 +273,6 @@ alias rba="repo branch"
 alias rst="repo start"
 alias ra="repo abandon"
 alias rp="repo prune"
-
-alias rgn="rg -l"
 
 alias chops='source ~/chops_venv/bin/activate; eval `~/chops/infra/go/env.py`; cd ~/chops'
 
@@ -400,6 +410,7 @@ function vcreate {
 function apsql {
     cd ~/Code/twilio_dialing_service
     vact
+    python ./chalicelib/config/secrets.py prod
     source chalicelib/config/.env-prod
     source chalicelib/config/.secrets-prod
     export PGPASSWORD=$DB_PASSWORD;
