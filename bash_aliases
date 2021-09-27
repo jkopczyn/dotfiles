@@ -454,6 +454,17 @@ alias pmd="pythonmakedir"
 
 alias ks="ls"
 
+# Not a VPN but replaces one
+function vpn {
+	if lsof -Pi :55433 -sTCP:LISTEN -t >/dev/null ; then
+	    echo "bastion already running"
+	else
+        target=$(~/Code/bastion-cli/get-bastion.sh integration)
+		~/Code/bastion-cli/bastion.sh 55433 delta-db-staging-cluster.cluster-ctqliumxmv7i.us-east-1.rds.amazonaws.com:5432 $target >/dev/null &
+	    echo "bastion running"
+	fi
+}
+
 if [ -f ~/bin/bashrc/test_aliases ]; then
   . ~/bin/bashrc/test_aliases
 fi
