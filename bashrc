@@ -15,16 +15,26 @@ pathadd() {
     fi
 }
 
+# Force goenv PATH
+export GOENV_SHELL=bash
+export GOENV_ROOT=/Users/jkop/.goenv
+export PATH="$GOENV_ROOT/shims:$PATH"
+
 
 # Patches for tmux
 alias fixssh='export $(tmux show-environment | grep \^SSH_AUTH_SOCK=)'
 
-#set up fasd
-eval "$(fasd --init auto)"
-
 # enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
+COLORS_SUPPORTED=""
+if [ -n "$(which dircolors)" ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    COLORS_SUPPORTED="true"
+fi
+if [ -n "$(which gdircolors)" ]; then
+    test -r ~/.dircolors && eval "$(gdircolors -b ~/.dircolors)" || eval "$(gdircolors -b)"
+    COLORS_SUPPORTED="true"
+fi
+if [ -n $COLORS_SUPPORTED ]; then
     alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
@@ -71,7 +81,7 @@ case $- in
       *) return;;
 esac
 
-### Move to ~/Code if starting in ~
+### Move to ~/code if starting in ~
 # [ ! EXPR ]: boolean negation
 # [ ( EXPR ) ]: evaluates EXPR before combining it with anything else. Creates a subshell.
 #     [ { EXPR } ]: same except it doesn't create a subshell
@@ -85,12 +95,10 @@ esac
 if ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; } then
   if [ `pwd` = "/home/jkop" ]; then
     echo "present"
-    cd Code
+    cd code
   fi
 fi
 
 export PS1="\[\e]0;\u@\h:\w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "
-# Start bastion session if not already running
-vpn
 #start or join tmux session
 mux

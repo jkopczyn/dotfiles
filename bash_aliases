@@ -33,7 +33,11 @@ function fdd {
 }
 
 # find name
-alias fn='fdfind'
+if [ -n "$(which fdfind)" ]; then
+    alias fn='fdfind'
+elif [ -n "$(which fd)" ]; then
+    alias fn='fd'
+fi
 
 # git cl aliases, no longer in use
 # function setallupstreams {
@@ -200,6 +204,7 @@ alias gim="git commit -m"
 alias gir="git reset"
 alias gl="git log"
   alias glp="git log -p"
+  alias gln="git log --name-only"
 alias gl1="git log -1"
   alias gl2="git log -2"
   alias gl3="git log -3"
@@ -454,16 +459,6 @@ alias pmd="pythonmakedir"
 
 alias ks="ls"
 
-# Not a VPN but replaces one
-function vpn {
-	if lsof -Pi :55433 -sTCP:LISTEN -t >/dev/null ; then
-	    echo "bastion already running"
-	else
-        target=$(~/Code/bastion-cli/get-bastion.sh integration)
-		~/Code/bastion-cli/bastion.sh 55433 delta-db-staging-cluster.cluster-ctqliumxmv7i.us-east-1.rds.amazonaws.com:5432 $target >/dev/null &
-	    echo "bastion running"
-	fi
-}
 
 if [ -f ~/bin/bashrc/test_aliases ]; then
   . ~/bin/bashrc/test_aliases

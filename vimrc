@@ -24,20 +24,20 @@ highlight ColorColumn ctermbg=DarkBlue
 set laststatus=2
 set ignorecase
 set smartcase
-
-"hopefully make backspace work
+"make backspace work
 set backspace=indent,eol,start
 
 " catch common save and quit mistakes
-command! WQ wq                       "meant wq
-command! Wq wq                       "meant wq
-command! W w                         "meant w
-command! Q q                         "meant q
+command! WQ wq  "meant wq
+command! Wq wq  "meant wq
+command! W w    "meant w
+command! Q q    "meant q
 
 " copy visualy selected text to clip board
 vmap <C-x> :!pbcopy<CR>
 vmap <C-c> :w !pbcopy<CR><CR>
 
+" map ^[ means the Escape key, this is <Esc>+ etc.
 map + <C-W>5+
 map - <C-W>5-
 map . <C-W>5>
