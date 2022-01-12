@@ -24,6 +24,12 @@ export PATH="$GOENV_ROOT/shims:$PATH"
 # Patches for tmux
 alias fixssh='export $(tmux show-environment | grep \^SSH_AUTH_SOCK=)'
 
+#set up fasd; `which fasd_cd` is always empty, so use a proxy
+#  this is nonzero if fasd is initiatized and has anything recorded
+if [[ -z "$(fasd_cd -1 2> /dev/null)" ]]; then
+  eval "$(fasd --init auto)"
+fi
+
 # enable color support of ls and also add handy aliases
 COLORS_SUPPORTED=""
 if [ -n "$(which dircolors)" ]; then
