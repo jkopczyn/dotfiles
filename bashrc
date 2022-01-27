@@ -15,10 +15,13 @@ pathadd() {
     fi
 }
 
-# Force goenv PATH
-export GOENV_SHELL=bash
-export GOENV_ROOT=/Users/jkop/.goenv
-export PATH="$GOENV_ROOT/shims:$PATH"
+
+
+# for mars
+LOCAL_BIN=$(realpath ~)/bin
+if [ "${PATH#*$LOCAL_BIN}" = "${PATH}" ]; then
+    export PATH="$PATH:$LOCAL_BIN"
+fi
 
 
 # Patches for tmux
