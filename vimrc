@@ -3,6 +3,7 @@
 "or substitute "~' with the true path to the repo
 
 set nocompatible    " be iMproved, required
+source ~/dotfiles/plugins.vim
 
 set tabstop=4
 set softtabstop=0

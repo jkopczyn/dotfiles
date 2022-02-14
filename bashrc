@@ -15,7 +15,13 @@ pathadd() {
     fi
 }
 
-
+#luther AWS
+function aws_login {
+    role="${1:-testing}"
+    echo "logging into AWS with role $role"
+    aws_unset
+    eval "$(~/go/bin/speculate env --mfa ${role})"
+}
 
 # for mars
 LOCAL_BIN=$(realpath ~)/bin
@@ -33,25 +39,7 @@ if [[ -z "$(fasd_cd -1 2> /dev/null)" ]]; then
   eval "$(fasd --init auto)"
 fi
 
-# enable color support of ls and also add handy aliases
-COLORS_SUPPORTED=""
-if [ -n "$(which dircolors)" ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    COLORS_SUPPORTED="true"
-fi
-if [ -n "$(which gdircolors)" ]; then
-    test -r ~/.dircolors && eval "$(gdircolors -b ~/.dircolors)" || eval "$(gdircolors -b)"
-    COLORS_SUPPORTED="true"
-fi
-if [ -n $COLORS_SUPPORTED ]; then
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
+source ~/dotfiles/bash_color_check
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like

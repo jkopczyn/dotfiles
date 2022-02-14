@@ -39,6 +39,18 @@ elif [ -n "$(which fd)" ]; then
     alias fn='fd'
 fi
 
+# ls color support, if bash_color_check says it's supported
+if [ -n $COLORS_SUPPORTED ]; then
+    alias ls='ls --color=always'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=always'
+    alias fgrep='fgrep --color=always'
+    alias egrep='egrep --color=always'
+fi
+
+
 # git cl aliases, no longer in use
 # function setallupstreams {
 #   for branch in $(git for-each-ref --format='%(refname:lstrip=2)' refs/heads/); do
@@ -70,11 +82,11 @@ alias dotfiles='vim ~/dotfiles/bash_aliases && source ~/dotfiles/bash_aliases'
   alias dotf='dotfiles'
   alias dof='dotfiles'
 
-function git-branch-last-commit {
-  git branch "$@" | grep --line-buffered -v '/HEAD' | while read branch; do
-    git log -n1 --format="format:%C(auto)%D%Creset - %s %Cgreen(%ar)%Creset %C(bold blue)<%an>%n" "${branch/* /}"
-  done
-}
+# function git-branch-last-commit {
+#   git branch "$@" | grep --line-buffered -v '/HEAD' | while read branch; do
+#     git log -n1 --format="format:%C(auto)%D%Creset - %s %Cgreen(%ar)%Creset %C(bold blue)<%an>%n" "${branch/* /}"
+#   done
+# }
 
 alias cls='printf "\ec"'
 alias reset='printf "\ec"'
@@ -459,6 +471,10 @@ alias pmd="pythonmakedir"
 
 alias ks="ls"
 
+#Luther
+alias init="aws_login && pinata-ssh-forward"
+
+alias dprune="docker system prune"
 
 if [ -f ~/bin/bashrc/test_aliases ]; then
   . ~/bin/bashrc/test_aliases
