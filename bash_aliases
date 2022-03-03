@@ -121,6 +121,7 @@ alias gm="git merge"
   alias gmm="git merge master"
   alias gmom="git merge origin/master"
 alias gcup="git branch -u" # set upstream
+alias refl="git reflog"
 
 alias gvl="go vet; golint"
   alias gv="go vet"
@@ -416,6 +417,7 @@ function arpsql {
     psql --host=$DB_REPLICA_HOST --port=$DB_PORT --username=$DB_USER --dbname=$DB_NAME
 }
 
+alias js='jobs'
 
 pythonmakedir() {
     mkdir "$@"
