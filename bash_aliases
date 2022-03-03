@@ -50,34 +50,6 @@ if [ -n $COLORS_SUPPORTED ]; then
     alias egrep='egrep --color=always'
 fi
 
-
-# git cl aliases, no longer in use
-# function setallupstreams {
-#   for branch in $(git for-each-ref --format='%(refname:lstrip=2)' refs/heads/); do
-#     git checkout $branch
-#     UP=$(git cl upstream)
-#     if [ "$UP" = "refs/remotes/origin/master" ]; then
-#       git cl upstream origin/master
-#     fi
-#   done
-# }
-# alias gca="git cl archive"
-# alias gcu="git cl upload"
-# alias gcup="git cl upstream"
-#   # p as in parent
-#   alias gcp="git cl upstream"
-#   alias gcupom="git cl upstream origin/master; gb"
-#   alias gcupmm="git cl upstream cros/master; gb"
-#   alias gcpom="git cl upstream origin/master; gb"
-#   alias gcpmm="git cl upstream cros/master; gb"
-#   alias gcupma="setallupstreams"
-# alias gcm="git cl description"
-#   alias gcd="git cl description"
-# alias gct="git cl presubmit"
-#   alias gcta="git cl presubmit --all --parallel"
-# alias gcla="git commit --amend --no-edit; git cl description"
-alias gcup="git branch -u"
-
 alias dotfiles='vim ~/dotfiles/bash_aliases && source ~/dotfiles/bash_aliases'
   alias dotf='dotfiles'
   alias dof='dotfiles'
@@ -148,6 +120,7 @@ alias remm="rebi m/master"
 alias gm="git merge"
   alias gmm="git merge master"
   alias gmom="git merge origin/master"
+alias gcup="git branch -u" # set upstream
 
 alias gvl="go vet; golint"
   alias gv="go vet"
@@ -443,25 +416,6 @@ function arpsql {
     psql --host=$DB_REPLICA_HOST --port=$DB_PORT --username=$DB_USER --dbname=$DB_NAME
 }
 
-# assurance psql for t_d_s
-function spsql {
-    cd ~/Code/twilio_dialing_service
-    vact
-    python ./chalicelib/config/secrets.py staging
-    source chalicelib/config/.env-staging
-    source chalicelib/config/.secrets-staging
-    export PGPASSWORD=$DB_PASSWORD;
-    psql --host=$DB_HOST --port=$DB_PORT --username=$DB_USER --dbname=$DB_NAME
-}
-function apsql {
-    cd ~/Code/twilio_dialing_service
-    vact
-    python ./chalicelib/config/secrets.py prod
-    source chalicelib/config/.env-prod
-    source chalicelib/config/.secrets-prod
-    export PGPASSWORD=$DB_PASSWORD;
-    psql --host=$DB_HOST --port=$DB_PORT --username=$DB_USER --dbname=$DB_NAME
-}
 
 pythonmakedir() {
     mkdir "$@"
