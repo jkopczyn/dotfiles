@@ -428,7 +428,16 @@ alias pmd="pythonmakedir"
 alias ks="ls"
 
 #Luther
-alias init="aws_login && pinata-ssh-forward"
+function init {
+    KEY_NUM=`ssh-add -l | wc -l`
+    TARGET_NUM=`find ~/.ssh -maxdepth 1 -name "id*" -exec stat -f "." {} \; | wc -l`
+    if (( KEY_NUM*2 < TARGET_NUM)); then
+        echo "run ssh-add for private keys"
+        exit 1
+    fi
+    pinata-ssh-forward
+    aws_login
+}
 
 alias dprune="docker system prune"
 
