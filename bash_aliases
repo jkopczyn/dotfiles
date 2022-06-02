@@ -501,6 +501,14 @@ alias dif="docker images -f=reference="
   alias difs="docker images -f=reference='*/shiroclient:*'"
   alias dife="docker images -f=reference='*/explorer*:*' -f=reference='*explorer*:*' -f=reference='*/hyperledger-explorer*:*' -f=reference='luthersystems/*explorer*:*'"
 alias din="docker inspect --format='Container:{{slice .Id 0 12}}    Image:{{slice .Image 7 19}}'"
+function dockerlogstailduration {
+    docker logs --follow --until=${2:-"1m"} --tail=${3:-"-1"} $1
+}
+alias dl="docker logs"
+  alias dlt="docker logs --follow"
+  alias dltu="dockerlogstailduration"
+  # alias dina="docker inspect --format='Container:{{slice .Id 0 12}}    Image:{{slice .Image 7 19}}' $(docker ps -q)"
+  # alias dinaa="docker inspect --format='Container:{{slice .Id 0 12}}    Image:{{slice .Image 7 19}}' $(docker ps -aq)"
 
 if [ -f ~/bin/bashrc/test_aliases ]; then
   . ~/bin/bashrc/test_aliases
