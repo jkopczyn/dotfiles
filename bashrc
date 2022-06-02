@@ -86,8 +86,8 @@ esac
 # [ `pwd` = "/home/jkop" ]: if shell opened at ~
 #     default shells will change dir but not nondefault ones
 if ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; } then
-  if [ `pwd` = "/home/jkop" ]; then
-    echo "present"
+  if [ `pwd` = "/home/jkop" ] || [  `pwd` = "/Users/jkop" ]; then
+    echo "present in ~, moving to ~/code"
     cd code
   fi
 fi
