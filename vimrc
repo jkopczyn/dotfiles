@@ -1,13 +1,14 @@
 "should be invoked from ~/.vimrc like this:
 "source ~/dotfiles/vimrc
 "or substitute "~' with the true path to the repo
+"or symlink ~/.vimrc to this file's path, that works too
 
 set nocompatible    " be iMproved, required
 source ~/dotfiles/plugins.vim
 
 set tabstop=4
 set softtabstop=0
-set shiftwidth=4    "set default indenting to 2 spaces
+set shiftwidth=4    "set default indenting to 4 spaces
 set expandtab
 set autoindent
 set noimdisable
@@ -16,10 +17,11 @@ set imsearch=0
 set noswapfile
 set relativenumber  "set relative numberlines
 set number          "show the line number of the one i'm on
+set ruler           "show the line and character number in bottom right, reset by compatible(/nocompatible?)
 set textwidth=80
 set scrolloff=1
 "show the 80 char rule
-set colorcolumn=81
+set colorcolumn=+1
 "but not in ugly red
 highlight ColorColumn ctermbg=DarkBlue
 set laststatus=2
@@ -37,6 +39,7 @@ command! Q q    "meant q
 " copy visualy selected text to clip board
 vmap <C-x> :!pbcopy<CR>
 vmap <C-c> :w !pbcopy<CR><CR>
+"broken on Mac, I think?
 
 " map ^[ means the Escape key, this is <Esc>+ etc.
 map + <C-W>5+
