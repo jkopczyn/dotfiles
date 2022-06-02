@@ -2,6 +2,8 @@
 
 #echo 'dotfiles/bash_profile being executed'
 
+source "$(dirname ${BASH_SOURCE[0]})/bash_PATH_mod.sh"
+
 complete -C '/usr/local/bin/aws_completer' aws
 
 if [[ -z $TMUX ]]; then
@@ -14,8 +16,10 @@ if [[ -z $TMUX ]]; then
 fi
 
 export GOENV_ROOT="$HOME/.goenv"
-export PATH="$GOENV_ROOT/bin:$PATH"
+pathprepend "$GOENV_ROOT/bin"
 export GOENV_DISABLE_GOPATH=1
 eval "$(goenv init -)"
-export PATH="$GOROOT/bin:$PATH"
-export PATH="$PATH:$GOPATH/bin"
+pathprepend "$GOROOT/bin"
+pathprependbin "$(realpath $GOROOT/..)"
+pathprepend "$HOME/go/bin"
+pathprependbin "$GOPATH"

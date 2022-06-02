@@ -9,11 +9,7 @@
 
 #echo 'dotfiles/bashrc being executed'
 
-pathadd() {
-    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
-        PATH="${PATH:+"$PATH:"}$1"
-    fi
-}
+source "$(dirname ${BASH_SOURCE[0]})/bash_PATH_mod.sh"
 
 #luther AWS
 function aws_login {
