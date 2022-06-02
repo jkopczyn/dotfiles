@@ -126,6 +126,9 @@ alias gm="git merge"
   alias gmom="git merge origin/master"
 alias gcup="git branch -u" # set upstream
 alias refl="git reflog"
+alias gch="git cherry-pick"
+  alias gchc="git cherry-pick --continue"
+  alias gcha="git cherry-pick --abort"
 
 alias gvl="go vet; golint"
   alias gv="go vet"
@@ -181,6 +184,7 @@ function gd^^ { git diff "$1"^^ "${@:1}"; }
 alias gap="git add -p"
   alias gao="git add -p"
 alias gb="git branch -v"
+  alias gb1="git branch --show-current"
 alias gco="git checkout"
   alias gc="git checkout"
   alias gc.="git checkout ."
@@ -224,6 +228,8 @@ alias gica="git commit --amend"
 alias gicas="git commit --amend --no-edit"
 alias gics="git commit --signoff"
   alias gicsa="git commit --signoff --amend"
+alias grem="git remote -v"
+  alias grema="git remote add"
 
 function gsy {
   for i in */.git
