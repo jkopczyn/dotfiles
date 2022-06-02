@@ -509,6 +509,16 @@ alias dl="docker logs"
   alias dltu="dockerlogstailduration"
   # alias dina="docker inspect --format='Container:{{slice .Id 0 12}}    Image:{{slice .Image 7 19}}' $(docker ps -q)"
   # alias dinaa="docker inspect --format='Container:{{slice .Id 0 12}}    Image:{{slice .Image 7 19}}' $(docker ps -aq)"
+function dockerattach {
+    docker exec -it $1 /bin/sh
+}
+alias da=dockerattach
+# digest docker image into comparable format
+function dockerdigest {
+    docker run -it $1  sh -c 'find / -type f | sort  | xargs -I{} sha512sum {}' > ${2:-"/tmp"}/dockerfiles.$1.txt
+}
+alias dnl="docker network ls"
+alias dn="docker network ls"
 
 if [ -f ~/bin/bashrc/test_aliases ]; then
   . ~/bin/bashrc/test_aliases
