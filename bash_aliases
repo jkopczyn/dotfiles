@@ -238,14 +238,25 @@ function gsy {
 }
 
 alias pd="pushd"
-  alias pd.="pushd .."
-  alias pd..="pushd .."
   alias pd.1="pushd .."
   alias pd.2="pushd ../.."
   alias pd.3="pushd ../../.."
   alias pd.4="pushd ../../../.."
   alias pd.5="pushd ../../../../.."
   alias pd.6="pushd ../../../../../.."
+function pd-foo {
+  pushd "../${@}"
+}
+alias pd.="pd-foo"
+  alias pd..="pd-foo"
+alias pd2="pushd +2"
+alias pd3="pushd +3"
+alias pd4="pushd +4"
+alias pd5="pushd +5"
+alias pd6="pushd +6"
+alias pd7="pushd +7"
+alias pd8="pushd +8"
+alias pd9="pushd +9"
 
 alias cd.="cd .."
   alias cd..="cd .."
