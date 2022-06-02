@@ -480,6 +480,22 @@ function init {
 }
 
 alias dprune="docker system prune"
+alias dpsn="docker ps --format 'table {{.Status}}\t{{.ID}}\t{{.Names}}'"
+  alias dspn="dpsn"
+  alias wdpsn="watch -n 1 \"docker ps --format 'table {{.Status}}\t{{.ID}}\t{{.Names}}'\""
+  alias wdps="wdpsn"
+alias dpsan="docker ps -a --format 'table {{.Status}}\t{{.ID}}\t{{.Names}}'"
+  alias dspan="dpsan"
+  alias wdpsan="watch -n 1 \"docker ps -a --format 'table {{.Status}}\t{{.ID}}\t{{.Names}}'\""
+  alias wdpsa="wdpsan"
+alias dps="docker ps"
+alias dpsa="docker ps -a"
+alias dpsf="docker ps --format"
+alias dpsaf="docker ps --format"
+alias dpsp="docker ps --format 'table {{.Status}}\t{{.Ports}}\t{{.Names}}'"
+alias dpsap="docker ps -a --format 'table {{.Status}}\t{{.Ports}}\t{{.Names}}'"
+alias dpsl="docker ps --format 'table {{.ID}}\t{{.Names}}\t{{.Labels}}\t{{.Image}}'"
+alias dpsal="docker ps -a --format 'table {{.ID}}\t{{.Names}}\t{{.Labels}}\t{{.Image}}'"
 
 if [ -f ~/bin/bashrc/test_aliases ]; then
   . ~/bin/bashrc/test_aliases
