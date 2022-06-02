@@ -201,7 +201,8 @@ alias gl1="git log -1"
   alias gl8="git log -8"
   alias gl9="git log -9"
 # glv formats a commit to make using it as a go.mod pseudoversion easier
-alias glv="git log --date=format:'%Y%m %d%H%z %M%S' --format=v0.0.0-%ad-%h\ %s --abbrev=12"
+alias glv="TZ=UTC0 git log --date=format-local:'%Y%m%d%H%M%S' --format=v0.0.0-%cd-%h\ %s --abbrev=12 -10"
+alias glv1="glv -1"
 
 function gpu {
   git push -u origin $(git symbolic-ref --short HEAD) "$@"
