@@ -107,7 +107,8 @@ alias gis="git status"
   alias gs="git status"
 alias gsh="git show"
 alias gp="git push"
-	alias gpf="git push --no-verify"
+	alias gpnv="git push --no-verify"
+	alias gpf="git push -f"
 alias gpl="git pull"
 alias ggr="gap; gicas; ru."
   alias gpgr="gap; gicas; ru."
@@ -221,6 +222,8 @@ alias gic="git commit -c@ --reset-author"
   alias gicf="git commit --no-verify"
 alias gica="git commit --amend"
 alias gicas="git commit --amend --no-edit"
+alias gics="git commit --signoff"
+  alias gicsa="git commit --signoff --amend"
 
 function gsy {
   for i in */.git
