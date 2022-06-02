@@ -12,6 +12,8 @@ alias cd="cda"
 function rgmsg {
   rg "message $@"
 }
+alias rgu="rg -uu"
+  alias rgun="rg -uul"
 alias rgn="rg -l"
 function vrg {
   vim `rg -l $@`
@@ -38,6 +40,7 @@ if [ -n "$(which fdfind)" ]; then
 elif [ -n "$(which fd)" ]; then
     alias fn='fd'
 fi
+alias fnu="fn -uu"
 
 # ls color support, if bash_color_check says it's supported
 if [ -n $COLORS_SUPPORTED ]; then
