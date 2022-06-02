@@ -496,6 +496,11 @@ alias dpsp="docker ps --format 'table {{.Status}}\t{{.Ports}}\t{{.Names}}'"
 alias dpsap="docker ps -a --format 'table {{.Status}}\t{{.Ports}}\t{{.Names}}'"
 alias dpsl="docker ps --format 'table {{.ID}}\t{{.Names}}\t{{.Labels}}\t{{.Image}}'"
 alias dpsal="docker ps -a --format 'table {{.ID}}\t{{.Names}}\t{{.Labels}}\t{{.Image}}'"
+alias dif="docker images -f=reference="
+  alias di="dif"
+  alias difs="docker images -f=reference='*/shiroclient:*'"
+  alias dife="docker images -f=reference='*/explorer*:*' -f=reference='*explorer*:*' -f=reference='*/hyperledger-explorer*:*' -f=reference='luthersystems/*explorer*:*'"
+alias din="docker inspect --format='Container:{{slice .Id 0 12}}    Image:{{slice .Image 7 19}}'"
 
 if [ -f ~/bin/bashrc/test_aliases ]; then
   . ~/bin/bashrc/test_aliases
