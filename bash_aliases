@@ -12,8 +12,10 @@ alias cd="cda"
 function rgmsg {
   rg "message $@"
 }
-alias rgu="rg -uu"
-  alias rgun="rg -uul"
+alias rgu="rg --hidden"
+  alias rguu="rg --hidden --noignore" # equivalent to "rg -uu"
+  alias rgun="rg --hidden -l"
+  alias rguun="rg -l --hidden --noignore"
 alias rgn="rg -l"
 function vrg {
   vim `rg -l $@`
