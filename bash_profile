@@ -20,6 +20,5 @@ pathprepend "$GOENV_ROOT/bin"
 export GOENV_DISABLE_GOPATH=1
 eval "$(goenv init -)"
 pathprepend "$GOROOT/bin"
-pathprependbin "$(realpath $GOROOT/..)"
 pathprepend "$HOME/go/bin"
-pathprependbin "$GOPATH"
+pathprependbin "$(go env GOPATH)"
