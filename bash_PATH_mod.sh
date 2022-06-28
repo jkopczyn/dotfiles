@@ -20,5 +20,3 @@ pathprependbin() {
         pathprepend "${1}/bin"
     fi
 }
-
-

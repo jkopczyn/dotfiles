@@ -62,12 +62,6 @@ export EDITOR='vim'
 #macro for quick git initialization
 alias gitmakeremote="bash $HOME/dotfiles/gitmakeremote.sh"
 
-if [ -f /usr/local/google/home/jkop/chops ]; then
-	/usr/local/google/home/jkop/chops/infra/go/env.py > /usr/local/google/home/jkop/chops/infra/go/env.sh
-	source /usr/local/google/home/jkop/chops/infra/go/env.sh
-	rm /usr/local/google/home/jkop/chops/infra/go/env.sh
-fi
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -83,10 +77,10 @@ esac
 # [ -n STRING]: true if length of STRING is nonzero
 # ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ] }: trigger if probably outside Tmux.
 #       (tmux sets $TERM to screen AND sets the $TMUX envvar) -> negate
-# [ `pwd` = "/home/jkop" ]: if shell opened at ~
+# [ $(pwd) = $(realpath ~) ]: if shell opened at ~
 #     default shells will change dir but not nondefault ones
 if ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; } then
-  if [ `pwd` = "/home/jkop" ] || [  `pwd` = "/Users/jkop" ]; then
+  if [ $(pwd) = $(realpath ~) ]; then # || [ `pwd` = "/home/jkop" ] || [  `pwd` = "/Users/jkop" ]; then
     echo "present in ~, moving to ~/code"
     cd code
   fi
