@@ -15,10 +15,12 @@ if [[ -z $TMUX ]]; then
   fi
 fi
 
+echo "~/dotfiles/bash_profile direct actions"
 export GOENV_ROOT="$HOME/.goenv"
 pathprepend "$GOENV_ROOT/bin"
 export GOENV_DISABLE_GOPATH=1
-eval "$(goenv init -)"
-pathprepend "$GOROOT/bin"
-pathprepend "$HOME/go/bin"
+pathprependbin "$GOENV_ROOT"
 pathprependbin "$(go env GOPATH)"
+eval "$(goenv init -)"
+# not sure I want GOROOT directly, prefer shims?
+# pathprependbin "$GOROOT"
