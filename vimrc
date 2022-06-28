@@ -4,6 +4,7 @@
 "or symlink ~/.vimrc to this file's path, that works too
 
 set nocompatible    " be iMproved, required
+let mapleader = "\\"
 source ~/dotfiles/plugins.vim
 
 set tabstop=4
@@ -70,5 +71,8 @@ let g:netrw_liststyle=3
 "for switching to big windows and back
 nmap te :tabedit %<CR>
 nmap td :tabclose<CR>
+
+"load Go-focused aliases
+source ~/dotfiles/go-mappings.vim
 
 cnoreabbrev vres vertical resize
