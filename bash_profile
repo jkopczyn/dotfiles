@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#echo 'dotfiles/bash_profile being executed'
-
 source "$(dirname ${BASH_SOURCE[0]})/bash_PATH_mod.sh"
 
 complete -C '/usr/local/bin/aws_completer' aws
@@ -20,7 +18,5 @@ export GOENV_ROOT="$HOME/.goenv"
 pathprepend "$GOENV_ROOT/bin"
 export GOENV_DISABLE_GOPATH=1
 pathprependbin "$GOENV_ROOT"
-pathprependbin "$(go env GOPATH)"
 eval "$(goenv init -)"
-# not sure I want GOROOT directly, prefer shims?
-# pathprependbin "$GOROOT"
+pathaddbin "$(go env GOPATH)" # at the end for security

@@ -21,9 +21,7 @@ function aws_login {
 
 # for mars
 LOCAL_BIN=$(realpath ~)/bin
-if [ "${PATH#*$LOCAL_BIN}" = "${PATH}" ]; then
-    export PATH="$PATH:$LOCAL_BIN"
-fi
+pathadd $LOCAL_BIN
 
 
 # Patches for tmux
