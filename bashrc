@@ -9,7 +9,7 @@
 
 #echo 'dotfiles/bashrc being executed'
 
-source "$(dirname ${BASH_SOURCE[0]})/bash_PATH_mod.sh"
+source "$(dirname ${BASH_SOURCE[0]})/bash_PATH_mod_funcs.sh"
 
 #luther AWS
 function aws_login {
