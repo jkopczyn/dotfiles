@@ -1,5 +1,14 @@
 #!/bin/bash
 
+if [[ -n $TMUX ]] && [[ "$(uname -s)"  =~ ^Darwin* ]]; then
+    # /etc/profile causes PATH contortion on OSX in login shells
+    # better to just detect that and start from empty
+	if [ -f /etc/profile ]; then
+		PATH=""
+		source /etc/profile
+	fi
+fi
+
 source "$(dirname ${BASH_SOURCE[0]})/bash_PATH_mod_funcs.sh"
 
 complete -C '/usr/local/bin/aws_completer' aws
@@ -17,23 +26,6 @@ export GOENV_ROOT="$HOME/.goenv"
 pathprependbin "$GOENV_ROOT"
 export GOENV_DISABLE_GOPATH=1
 eval "$(goenv init -)"
-
-# /etc/profile causes PATH contortion on OSX in login shells
-# which doesn't play nice with goenv
-unameOut="$(uname -s)"
-case "${unameOut}" in
-    Linux*)
-	#do nothing
-	;;
-    Darwin*)
-	# need to override the nonsense OSX does to change PATH when starting tmux
-	if [[ -n $TMUX ]]; then
-		export PATH="/Users/jkop/.goenv/shims:/Users/jkop/.goenv/bin:$PATH"
-	fi
-    ;;
-    *)
-	echo "UNKNOWN OS, PATH MAY BE UNSTABLE"
-esac
 
 if [[ -n $(go env GOPATH) ]]; then
 	pathaddbin "$(go env GOPATH)" # at the end of the list for security
