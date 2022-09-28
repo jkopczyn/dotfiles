@@ -13,11 +13,14 @@ function rgmsg {
   rg "message $@"
 }
 alias rgu="rg --hidden"
-  alias rguu="rg --hidden --noignore" # equivalent to "rg -uu"
+  alias rguu="rg --hidden --no-ignore" # equivalent to "rg -uu"
   alias rgun="rg --hidden -l"
-  alias rguun="rg -l --hidden --noignore"
+  alias rguun="rg -l --hidden --no-ignore"
 alias rgl="rg --max-depth 1" # l for local, this descends into one set of subdirs only
 alias rgn="rg -l"
+alias rgS="rg -S"
+  alias rguS="rg --hidden -S"
+  alias rguuS="rg --hidden --no-ignore -S"
 function vrg {
   vim `rg -l $@`
 }
