@@ -37,6 +37,10 @@ command! Wq wq  "meant wq
 command! W w    "meant w
 command! Q q    "meant q
 
+"split verticallly
+command Vba :vert ba "would be better as :vba but that needs plugin
+command VBA :vert ba "and that plugin doesn't seem to be maintained in years
+
 " copy visualy selected text to clip board
 vmap <C-x> :!pbcopy<CR>
 vmap <C-c> :w !pbcopy<CR><CR>

@@ -11,7 +11,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'fatih/vim-go'
 " needs `:GoInstallBinaries` run at least once
-" periodically run `:GoUpdateBinaries`
+" periodically run `:GoUpdateBinaries` " last 2022-09-28
 
 call vundle#end()
 " no longer needed once plugins are loaded
