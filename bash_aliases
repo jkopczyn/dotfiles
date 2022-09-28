@@ -93,6 +93,7 @@ alias gbd="git branch -d"
   alias gbD="git branch -D"
 alias gd="git diff"
 alias gdh="git diff HEAD -- "
+  alias gdj="git diff HEAD -- "
   alias gdh.="git diff HEAD -- ."
   alias gdh^="git diff HEAD^ --"
   alias gdh^^="git diff HEAD^^ --"
@@ -117,6 +118,10 @@ alias gp="git push"
 	alias gpnv="git push --no-verify"
 	alias gpf="git push -f"
 alias gpl="git pull"
+function gbpl {
+  TEMP=`gb --show-current`
+  git checkout $1 && git pull && git checkout $TEMP
+}
 alias ggr="gap; gicas; ru."
   alias gpgr="gap; gicas; ru."
   alias gagr="gap; gicas; ru."
@@ -131,11 +136,15 @@ alias remm="rebi m/master"
 alias gm="git merge"
   alias gmm="git merge master"
   alias gmom="git merge origin/master"
+  alias gma="git merge --abort"
 alias gcup="git branch -u" # set upstream
 alias refl="git reflog"
 alias gch="git cherry-pick"
   alias gchc="git cherry-pick --continue"
   alias gcha="git cherry-pick --abort"
+alias grm="git rm"
+  alias grmr="git rm -r"
+  alias grmd="git rm -r"
 
 alias gvl="go vet; golint"
   alias gv="go vet"
@@ -188,11 +197,10 @@ function gdn { git diff "$1" --relative --name-only; }
 function  gd^ { git diff "$1"^ "${@:1}"; }
 function gdn^ { git diff "$1"^ --relative --name-only "${@:1}"; }
 function gd^^ { git diff "$1"^^ "${@:1}"; }
-alias gap="git add -p"
-  alias gao="git add -p"
 alias gb="git branch -v"
   alias gb1="git branch --show-current"
   alias gbr="git branch -rv" # on remote
+  alias gbdate="git branch --sort='-committerdate:iso8601' --format='%C(always) %(committerdate:short) %(refname:short) %09 %(contents:lines=1)'"
 alias gco="git checkout"
   alias gc="git checkout"
   alias gc.="git checkout ."
@@ -206,7 +214,11 @@ alias gim="git commit -m"
 alias gir="git reset"
 alias gl="git log"
   alias glp="git log -p"
+    alias glp1="git log -p -1"
   alias gln="git log --name-only"
+    alias gln1="git log --name-only -1"
+  alias gls="git log --format=oneline"
+    alias gl1l="git log --format=oneline"
 alias gl1="git log -1"
   alias gl2="git log -2"
   alias gl3="git log -3"
@@ -220,6 +232,21 @@ alias gl1="git log -1"
 alias glv="TZ=UTC0 git log --date=format-local:'%Y%m%d%H%M%S' --format=v0.0.0-%cd-%h\ %s --abbrev=12 -10"
 alias glv1="glv -1"
 
+# git add operations aliases
+alias gap="git add -p"
+  alias gao="git add -p"
+function gapb {
+    for dir in "$@"
+    do
+        git-add-proto-artifacts-in-dir "$dir"
+    done
+}
+function git-add-proto-artifacts-in-dir {
+    git add "$1"/**.pb.go;
+    git add "$1"/**.swagger.json;
+} 
+
+
 function gpu {
   git push -u origin $(git symbolic-ref --short HEAD) "$@"
 }
@@ -230,6 +257,7 @@ alias grh="git reset --hard"
   alias grh^="grh HEAD^"
 alias grs="git restore --staged"
   alias grs.="git restore --staged ."
+    alias grsc.="git restore --staged . && git checkout ."
 alias gic="git commit -c@ --reset-author"
   alias gicf="git commit --no-verify"
 alias gica="git commit --amend"
@@ -243,6 +271,9 @@ function gsy {
   for i in */.git
   do ( echo $i; cd $i/..; git pull; )
   done
+}
+function grsc {
+    (git restore --staged $1) && (git checkout $1)
 }
 
 alias pd="pushd"
@@ -282,6 +313,11 @@ alias rebc="git rebase --continue"
 alias reba="git rebase --abort"
 alias rebe="git rebase --edit-todo"
 alias rebs="git rebase --signoff"
+function rebd {
+    ROOT=$(git rev-parse --show-toplevel)
+    (cd $ROOT && vim .git/rebase-merge/done)
+}
+
 function glg { git log --all --grep="$1"; }
 
 alias gbi="git bisect"
