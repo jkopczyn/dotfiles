@@ -522,6 +522,34 @@ function init {
     pinata-ssh-forward
     aws_login
 }
+# login as admin and open in browser
+function awsla {
+    aws_login
+    awsiamjump
+    aws_console
+}
+function awsl {
+    aws_login
+    aws_console
+}
+# login and switch to the role for uploading
+function s3up {
+    aws_login
+    awsiamjump
+}
+function awsiamjump {
+    ALIAS="${1:-platform-test}"
+    if [ ! -f ~/.aws/accounts ]; then
+        echo "Must name accounts in ~/.aws/accounts"
+        return 1
+    fi
+    if ! grep -q "${ALIAS}" ~/.aws/accounts; then
+        echo "alias $ALIAS not defined"
+        return 1
+    fi
+    aws_jump $ALIAS "${2:-admin}"
+    return 0
+}
 
 alias dprune="docker system prune"
 alias dpsn="docker ps --format 'table {{.Status}}\t{{.ID}}\t{{.Names}}'"
