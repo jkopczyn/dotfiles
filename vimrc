@@ -12,6 +12,10 @@ augroup vimrc_rainbow
     au FileType lisp call rainbow#load()
 augroup END
 
+" " enable this if languages other than Go are hanging on draw/redraw and failing
+" " syntax highlighting
+" set re=2
+
 set tabstop=4
 set softtabstop=0
 set shiftwidth=4    "set default indenting to 4 spaces

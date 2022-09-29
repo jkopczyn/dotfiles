@@ -15,6 +15,8 @@ augroup vimrc_go_mappings
 
     " Rename the symbol your cursor is on with \ + r:
     nmap <leader>r <Plug>(go-rename)
+
+    au FileType go setlocal re=2 "norelativenumber
 augroup END
 
 " Find all references of a given type/function in the codebase with \ + cr:
