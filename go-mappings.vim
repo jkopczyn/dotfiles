@@ -1,18 +1,21 @@
 
-" Show the function signature for a given routine with \ + i:
-autocmd BufEnter *.go nmap <leader>i  <Plug>(go-info)
+augroup vimrc_go_mappings
+    autocmd!
+    " Show the function signature for a given routine with \ + i:
+    autocmd BufEnter *.go nmap <leader>i  <Plug>(go-info)
 
-" Show the interfaces a type implements with \ + ii:
-autocmd BufEnter *.go nmap <leader>ii  <Plug>(go-implements)
+    " Show the interfaces a type implements with \ + ii:
+    autocmd BufEnter *.go nmap <leader>ii  <Plug>(go-implements)
 
-" Describe the definition of a given type with \ + ci:
-autocmd BufEnter *.go nmap <leader>ci  <Plug>(go-describe)
+    " Describe the definition of a given type with \ + ci:
+    autocmd BufEnter *.go nmap <leader>ci  <Plug>(go-describe)
 
-" See the callers of a given function with \ + cc:
-autocmd BufEnter *.go nmap <leader>cc  <Plug>(go-callers)
+    " See the callers of a given function with \ + cc:
+    autocmd BufEnter *.go nmap <leader>cc  <Plug>(go-callers)
 
-" Rename the symbol your cursor is on with \ + r:
-nmap <leader>r <Plug>(go-rename)
+    " Rename the symbol your cursor is on with \ + r:
+    nmap <leader>r <Plug>(go-rename)
+augroup END
 
 " Find all references of a given type/function in the codebase with \ + cr:
 "  " doesn't have equivalent in vim-go, I think

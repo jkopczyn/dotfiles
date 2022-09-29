@@ -7,8 +7,10 @@ set nocompatible    " be iMproved, required
 let mapleader = "\\"
 source ~/dotfiles/plugins.vim
 
-"vim-rainbow for lisp only
-au FileType lisp call rainbow#load()
+augroup vimrc_rainbow
+    "vim-rainbow for lisp only
+    au FileType lisp call rainbow#load()
+augroup END
 
 set tabstop=4
 set softtabstop=0
