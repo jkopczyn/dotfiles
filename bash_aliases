@@ -440,26 +440,6 @@ function vcreate {
   virtualenv ~/venvs/`basename ${PWD}`
 }
 
-# assurance psql for t_d_s replicas
-function srpsql {
-    cd ~/Code/twilio_dialing_service
-    vact
-    python ./chalicelib/config/secrets.py staging
-    source chalicelib/config/.env-staging
-    source chalicelib/config/.secrets-staging
-    export PGPASSWORD=$DB_PASSWORD;
-    psql --host=$DB_REPLICA_HOST --port=$DB_PORT --username=$DB_USER --dbname=$DB_NAME
-}
-function arpsql {
-    cd ~/Code/twilio_dialing_service
-    vact
-    python ./chalicelib/config/secrets.py prod
-    source chalicelib/config/.env-prod
-    source chalicelib/config/.secrets-prod
-    export PGPASSWORD=$DB_PASSWORD;
-    psql --host=$DB_REPLICA_HOST --port=$DB_PORT --username=$DB_USER --dbname=$DB_NAME
-}
-
 alias js='jobs'
 
 pythonmakedir() {
