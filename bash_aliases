@@ -389,23 +389,6 @@ function mux {
   fi
 }
 
-function rtr {
-  ./recipes.py $@ test run
-}
-function rtt {
-  ./recipes.py $@ test train
-}
-alias addtrained="git add *.json *.md"
-function rtta {
-  ./recipes.py $@ test train; addtrained
-}
-function rtto {
-  ./recipes.py -O $@ test train
-}
-function rttoa {
-  ./recipes.py -O $@ test train; addtrained
-}
-
 alias gph="git push heroku master"
 
 alias ptex="pdflatex -interaction scrollmode"
