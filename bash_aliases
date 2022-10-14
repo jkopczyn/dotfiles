@@ -355,30 +355,6 @@ alias chopsupdate="gclient recurse git rebase-update"
 alias gpla="gclient recurse git rebase-update"
 alias updall="gclient recurse git rebase-update"
 
-function bcm() {
-  become chromeos-test@${1}.${2}
-}
-
-function bcid() {
-  become chromeos-test@chromeos${1}-infra-devserver${2}.cros
-}
-
-function bcd() {
-  become chromeos-test@chromeos${1}-devserver${2}.cros
-}
-
-bcf() {
-  bcm cros-full-00${1} ${2-mtv}
-}
-
-bcs() {
-  bcm chromeos-skunk-${1} ${2-mtv}
-}
-
-bcbh() {
-  bcm cros-bighd-000${1} ${2-mtv}
-}
-
 function git_rebase_all() {
   cd ${1-''}
   for branch in $(git branch | cut -c 3-);
