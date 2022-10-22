@@ -7,6 +7,9 @@ set nocompatible    " be iMproved, required
 let mapleader = "\\"
 source ~/dotfiles/plugins.vim
 
+"vim-rainbow for lisp only
+au FileType lisp call rainbow#load()
+
 set tabstop=4
 set softtabstop=0
 set shiftwidth=4    "set default indenting to 4 spaces
