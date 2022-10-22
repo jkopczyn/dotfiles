@@ -8,6 +8,8 @@ let mapleader = "\\"
 source ~/dotfiles/plugins.vim
 
 augroup vimrc_rainbow
+    "vim-rainbow excluding black
+    let g:rainbow_ctermfgs = ['brown', 'Darkblue', 'darkgray', 'darkgreen', 'darkcyan', 'darkred', 'darkmagenta', 'brown', 'gray', 'darkmagenta', 'Darkblue', 'darkgreen', 'darkcyan', 'darkred', 'red']
     "vim-rainbow for lisp only
     au FileType lisp call rainbow#load()
 augroup END
