@@ -62,6 +62,7 @@ fi
 alias dotfiles='vim ~/dotfiles/bash_aliases && source ~/dotfiles/bash_aliases'
   alias dotf='dotfiles'
   alias dof='dotfiles'
+    alias dpf='dotfiles'
 
 # function git-branch-last-commit {
 #   git branch "$@" | grep --line-buffered -v '/HEAD' | while read branch; do
@@ -113,6 +114,7 @@ alias ggg="gap; gicas; gcu"
 alias gis="git status"
   alias ghosts="command gs"
   alias gs="git status"
+  alias gos="git status"
 alias gsh="git show"
 alias gp="git push"
 	alias gpnv="git push --no-verify"
@@ -437,6 +439,7 @@ alias l='d -e "ls --color=always"'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+  alias lsd='ls -CF'
 
 
 function vact {
