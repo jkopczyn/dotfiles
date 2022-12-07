@@ -8,10 +8,10 @@ let mapleader = "\\"
 source ~/dotfiles/plugins.vim
 
 augroup vimrc_rainbow
-    "vim-rainbow excluding black
-    let g:rainbow_ctermfgs = ['brown', 'Darkblue', 'darkgray', 'darkgreen', 'darkcyan', 'darkred', 'darkmagenta', 'brown', 'gray', 'darkmagenta', 'Darkblue', 'darkgreen', 'darkcyan', 'darkred', 'red']
     "vim-rainbow for lisp only
     au FileType lisp call rainbow#load()
+    "vim-rainbow excluding black
+    let g:rainbow_ctermfgs = ['brown', 'Darkblue', 'darkgray', 'darkgreen', 'darkcyan', 'darkred', 'darkmagenta', 'brown', 'gray', 'darkmagenta', 'Darkblue', 'darkgreen', 'darkcyan', 'darkred', 'red']
 augroup END
 
 " " enable this if languages other than Go are hanging on draw/redraw and failing
@@ -30,7 +30,7 @@ set noswapfile
 set relativenumber  "set relative numberlines
 set number          "show the line number of the one i'm on
 set ruler           "show the line and character number in bottom right, reset by compatible(/nocompatible?)
-set textwidth=80
+set textwidth=100
 set scrolloff=1
 "show the 80 char rule
 set colorcolumn=+1
@@ -41,6 +41,8 @@ set ignorecase
 set smartcase
 "make backspace work
 set backspace=indent,eol,start
+"lets search/replace work across many buffers
+set hidden
 
 " catch common save and quit mistakes
 command! WQ wq  "meant wq
