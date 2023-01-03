@@ -200,7 +200,7 @@ function  gd^ { git diff "$1"^ "${@:1}"; }
 function gdn^ { git diff "$1"^ --relative --name-only "${@:1}"; }
 function gd^^ { git diff "$1"^^ "${@:1}"; }
 alias gb="git branch -v"
-  alias gb1="git branch --show-current"
+  alias gb1="git show -s --pretty='%D %h'"
   alias gbr="git branch -rv" # on remote
   alias gbdate="git branch --sort='-committerdate:iso8601' --format='%C(always) %(committerdate:short) %(refname:short) %09 %(contents:lines=1)'"
 alias gco="git checkout"
