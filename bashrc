@@ -66,7 +66,7 @@ case $- in
       *) return;;
 esac
 
-### Move to ~/code if starting in ~
+### Move to ~/Code if starting in ~
 # [ ! EXPR ]: boolean negation
 # [ ( EXPR ) ]: evaluates EXPR before combining it with anything else. Creates a subshell.
 #     [ { EXPR } ]: same except it doesn't create a subshell
@@ -79,8 +79,8 @@ esac
 #     default shells will change dir but not nondefault ones
 if ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; } then
   if [ $(pwd) = $(realpath ~) ]; then # || [ `pwd` = "/home/jkop" ] || [  `pwd` = "/Users/jkop" ]; then
-    echo "present in ~, moving to ~/code"
-    cd code
+    echo "present in ~, moving to ~/Code"
+    cd Code
   fi
 fi
 
