@@ -24,9 +24,12 @@ althost:|alt-org	you+alt@example.com
 github\.com:|your-user	you@example.com
 ```
 
-> **Fail-open:** if the map is missing, or a remote matches no rule, the hooks
-> exit 0 and enforce nothing. Provision `~/.config/git/identities` on every
-> machine, or the guard is silently off.
+**Policy:** a repo with **no remote** is allowed (scratch repos commit
+freely). Any repo **with** a remote that resolves to no mapped identity is
+**rejected** — a forgotten mapping or missing map file fails closed rather
+than silently disabling the guard. Add a rule, or bypass once with
+`--no-verify`. So provision `~/.config/git/identities` on every machine
+before committing to remote-backed repos.
 
 ## Tests
 

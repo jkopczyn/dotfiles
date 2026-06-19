@@ -1,12 +1,26 @@
 #!/bin/bash
 # Refuse to commit under the wrong identity for this remote.
 # The remote->email map is per-machine and untracked; see lib-identity.sh.
+#
+# Policy: a repo with no remote is allowed (scratch repos). Any remote that
+# resolves to no mapped identity is rejected (fail closed) so a forgotten
+# mapping can't silently disable the guard.
 
 . "$(dirname "$0")/lib-identity.sh"
 
 remote_url=$(git remote get-url origin 2>/dev/null)
+[ -z "$remote_url" ] && exit 0  # no remote: scratch repo, nothing to guard
+
 expected=$(identity_expected_email "$remote_url")
-[ -z "$expected" ] && exit 0  # unknown/unmapped remote, skip check
+if [ -z "$expected" ]; then
+  if [ ! -f "$(identity_map_path)" ]; then
+    echo "ERROR: no identity map at $(identity_map_path); cannot verify identity for $remote_url"
+  else
+    echo "ERROR: no identity mapped for remote $remote_url in $(identity_map_path)"
+  fi
+  echo "Add a matching rule there, or bypass once with: git commit --no-verify"
+  exit 1
+fi
 
 email=$(git config user.email)
 if [ "$email" != "$expected" ]; then

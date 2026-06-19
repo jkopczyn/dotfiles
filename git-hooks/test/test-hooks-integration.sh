@@ -50,4 +50,20 @@ echo "refs/heads/main $clean_oid refs/heads/main $zero" \
   | "$hooks/pre-push" origin >/dev/null 2>&1
 report "pre-push allows clean history" 0 $?
 
+# Fail-closed: a remote that matches no rule is rejected (forces a mapping).
+git config user.email "primary@example.com"
+git remote set-url origin "git@gitlab.com:someone/x.git"
+echo c > c.txt && git add c.txt
+git commit -q -m "unmapped remote" 2>/dev/null
+report "pre-commit blocks unmapped remote (fail closed)" 1 $?
+
+echo "refs/heads/main $clean_oid refs/heads/main $zero" \
+  | "$hooks/pre-push" origin >/dev/null 2>&1
+report "pre-push blocks unmapped remote (fail closed)" 1 $?
+
+# Special case: a repo with no remote at all is allowed (scratch repo).
+git remote remove origin
+git commit -q -m "no remote, scratch repo"
+report "pre-commit allows repo with no remote" 0 $?
+
 exit $fail

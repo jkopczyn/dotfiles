@@ -2,12 +2,27 @@
 # Refuse to push commits authored under any identity other than the one this
 # remote expects. The remote->email map is per-machine and untracked; see
 # lib-identity.sh.
+#
+# Policy: if no remote URL can be resolved, allow (nothing to guard). Any
+# remote that resolves to no mapped identity is rejected (fail closed).
 
 . "$(dirname "$0")/lib-identity.sh"
 
+# git invokes this hook as: pre-push <remote-name> <remote-url>
 remote_url=$(git remote get-url "$1" 2>/dev/null)
+[ -z "$remote_url" ] && remote_url="$2"
+[ -z "$remote_url" ] && exit 0  # no resolvable remote, nothing to guard
+
 expected=$(identity_expected_email "$remote_url")
-[ -z "$expected" ] && exit 0  # unknown/unmapped remote, skip check
+if [ -z "$expected" ]; then
+  if [ ! -f "$(identity_map_path)" ]; then
+    echo "ERROR: no identity map at $(identity_map_path); cannot verify identity for $remote_url"
+  else
+    echo "ERROR: no identity mapped for remote $remote_url in $(identity_map_path)"
+  fi
+  echo "Add a matching rule there, or bypass once with: git push --no-verify"
+  exit 1
+fi
 
 # Every other mapped identity is forbidden on this remote.
 forbidden=$(identity_other_emails "$expected")
