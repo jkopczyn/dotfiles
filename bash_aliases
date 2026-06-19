@@ -408,16 +408,6 @@ alias pmd="pythonmakedir"
 alias ks="ls"
 
 #Luther
-function init {
-    KEY_NUM=`ssh-add -l | wc -l`
-    TARGET_NUM=`find ~/.ssh -maxdepth 1 -name "id*" -exec stat -f "." {} \; | wc -l`
-    if (( KEY_NUM*2 < TARGET_NUM)); then
-        echo "run ssh-add for private keys"
-        exit 1
-    fi
-    pinata-ssh-forward
-    aws_login
-}
 # login as admin and open in browser
 function awsla {
     aws_login
