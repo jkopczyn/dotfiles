@@ -478,6 +478,8 @@ function dockerdigest {
 alias dnl="docker network ls"
 alias dn="docker network ls"
 
+alias cld="claude -r"
+
 if [ -f ~/bin/bashrc/test_aliases ]; then
   . ~/bin/bashrc/test_aliases
 fi
