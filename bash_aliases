@@ -74,15 +74,7 @@ alias cls='printf "\ec"'
 alias reset='printf "\ec"'
 # These print '<ESC>c', the terminal reset code
 
-#alias irb='pry'
-alias be="bundle exec"
-alias brake="bundle exec rake"
-alias brails="bundle exec rails"
-alias ber="bundle exec rspec"
-
 alias chrome="google-chrome"
-
-alias hrake="heroku run rake"
 
 alias g="git"
 alias ga="git add"
@@ -102,15 +94,12 @@ alias gdh="git diff HEAD -- "
   alias gdho^="git diff HEAD^" # o as in options
 alias gdm="git diff main --"
   alias gdom="git diff origin/main --"
-  alias gdmm="git diff m/main --"
+
 alias gdhn="git diff HEAD^ --relative --name-only -- "
     alias gdhhn="git diff HEAD --relative --name-only -- "
 alias gf="git fetch"
   alias gfo="git fetch origin"
-alias ggg="gap; gicas; gcu"
-  alias gpgg="gap; gicas; gcu"
-  alias gagg="gap; gicas; gcu"
-  alias gaagg="gaa; gicas; gcu"
+
 alias gis="git status"
   alias ghosts="command gs"
   alias gs="git status"
@@ -124,20 +113,16 @@ function gbpl {
   TEMP=`gb --show-current`
   git checkout $1 && git pull && git checkout $TEMP
 }
-alias ggr="gap; gicas; ru."
-  alias gpgr="gap; gicas; ru."
-  alias gagr="gap; gicas; ru."
-  alias gaagr="gaa; gicas; ru."
+
 alias gst="git stash"
 alias gsa="git stash apply"
 alias gsl="git stash list"
 alias gss="git stash show -p"
 alias gsd="git stash drop"
 alias reom="rebi origin/main"
-alias remm="rebi m/main"
 alias gm="git merge"
-  alias gmm="git merge master"
-  alias gmom="git merge origin/master"
+  alias gmm="git merge main"
+  alias gmom="git merge origin/main"
   alias gma="git merge --abort"
 alias gcup="git branch -u" # set upstream
 alias refl="git reflog"
@@ -206,7 +191,7 @@ alias gb="git branch -v"
 alias gco="git checkout"
   alias gc="git checkout"
   alias gc.="git checkout ."
-  alias gcm="git -c advice.detachedHead=false checkout master"
+  alias gcm="git -c advice.detachedHead=false checkout main"
   alias gc^="git checkout HEAD^"
   alias gco^="git checkout HEAD^"
   # alias gcom="git -c advice.detachedHead=false checkout origin/master || git -c advice.detachedHead=false checkout m/master || git -c advice.detachedHead=false checkout cros/master"
@@ -339,29 +324,6 @@ alias gbir="git bisect reset"
   alias gbia="git bisect reset"
 alias gbiss="git bisect --signoff"
 
-alias ru="repo upload"
-alias ru.="repo upload ."
-  alias ru.nov="repo upload . --no-verify"
-alias rr="repo rebase ."
-alias rr.="repo rebase ."
-alias rs="repo sync"
-alias rs.="repo sync ."
-alias rsu="repo sync; repo rebase; repo upload ."
-alias rsu.="repo sync .; repo rebase .; repo upload ."
-function rco() { { repo checkout "$@" 2> /dev/null || repo start "$@"; } && echo "on branch $1";}
-  alias rc="rco"
-  alias rcb="rco"
-alias rb="repo branch . || repo branch"
-alias rba="repo branch"
-alias rst="repo start"
-alias ra="repo abandon"
-alias rp="repo prune"
-
-alias chops='source ~/chops_venv/bin/activate; eval `~/chops/infra/go/env.py`; cd ~/chops'
-
-alias chopsupdate="gclient recurse git rebase-update"
-alias gpla="gclient recurse git rebase-update"
-alias updall="gclient recurse git rebase-update"
 
 function git_rebase_all() {
   cd ${1-''}
@@ -373,21 +335,12 @@ function git_rebase_all() {
     then
       git rebase
     else
-      git rebase origin/master
+      git rebase origin/main
     fi
   done
 }
 alias gra="git_rebase_all"
 
-function repo_rebase_all() {
-  cd ${1-''}
-  for branch in $(git branch | cut -c 3-);
-  do
-    gco $branch
-    rr.
-  done
-}
-alias rra="repo_rebase_all"
 
 alias ta="tmux attach -d || tm"
 alias tm="tmux"
@@ -397,12 +350,9 @@ function mux {
   fi
 }
 
-alias gph="git push heroku master"
 
 alias ptex="pdflatex -interaction scrollmode"
 
-# macro for quick git initialization
-alias gitmakeremote="bash $HOME/dotfiles/gitmakeremote.sh"
 
 function vl {
   if [[ $# -ne 2 ]]; then
@@ -419,7 +369,6 @@ function vl {
   esac
   vim +$num $file -c 'normal zt'
 }
-alias vl=vl
 
 # fasd
 alias a='fasd -a'        # any
@@ -433,7 +382,6 @@ alias zz='fasd_cd -d -i' # cd with interactive selection
 alias c='f -e cat'
 alias v='f -e vim'
 alias p='d -e pushd'
-alias l='d -e "ls --color=always"'
 
 # some more ls aliases
 alias ll='ls -alF'

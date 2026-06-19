@@ -22,11 +22,13 @@ if [[ -z $TMUX ]]; then
   fi
 fi
 
-export GOENV_ROOT="$HOME/.goenv"
-pathprependbin "$GOENV_ROOT"
-export GOENV_DISABLE_GOPATH=1
-eval "$(goenv init -)"
+if command -v goenv &> /dev/null; then
+  export GOENV_ROOT="$HOME/.goenv"
+  pathprependbin "$GOENV_ROOT"
+  export GOENV_DISABLE_GOPATH=1
+  eval "$(goenv init -)"
+fi
 
-if [[ -n $(go env GOPATH) ]]; then
-	pathaddbin "$(go env GOPATH)" # at the end of the list for security
+if command -v go &> /dev/null && [[ -n $(go env GOPATH) ]]; then
+  pathaddbin "$(go env GOPATH)" # at the end of the list for security
 fi
