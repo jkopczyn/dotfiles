@@ -1,0 +1,3 @@
+# test fixture (fictional values only): <extended-regex vs remote URL><TAB><email>
+althost:|alt-org	secondary@example.com
+mainhost\.com:|main-user	primary@example.com
