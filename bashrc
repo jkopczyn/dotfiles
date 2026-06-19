@@ -9,6 +9,13 @@
 
 #echo 'dotfiles/bashrc being executed'
 
+# If not running interactively, don't do anything (everything below is interactive-only;
+# PATH is exported, so non-interactive child shells inherit it from their interactive parent)
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
 source "$(dirname ${BASH_SOURCE[0]})/bash_PATH_mod_funcs.sh"
 
 #luther AWS
@@ -22,7 +29,12 @@ function aws_login {
 # for mars
 LOCAL_BIN=$(realpath ~)/bin
 pathadd $LOCAL_BIN
+
+# Go: toolchain, plus 'go install' target (~/go/bin) so installed tools are on PATH
 pathprepend /usr/local/go/bin
+if command -v go &> /dev/null; then
+  pathaddbin "$(go env GOPATH)"
+fi
 
 
 # Patches for tmux
@@ -60,12 +72,6 @@ export EDITOR='vim'
 
 #macro for quick git initialization
 alias gitmakeremote="bash $HOME/dotfiles/gitmakeremote.sh"
-
-# If not running interactively, don't do anything
-case $- in
-    *i*) ;;
-      *) return;;
-esac
 
 ### Move to ~/Code if starting in ~
 # [ ! EXPR ]: boolean negation

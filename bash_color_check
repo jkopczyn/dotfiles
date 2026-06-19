@@ -6,7 +6,3 @@ if [ -n "$(which dircolors)" ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     COLORS_SUPPORTED="true"
 fi
-if [ -n "$(which gdircolors)" ]; then
-    test -r ~/.dircolors && eval "$(gdircolors -b ~/.dircolors)" || eval "$(gdircolors -b)"
-    COLORS_SUPPORTED="true"
-fi

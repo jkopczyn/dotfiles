@@ -49,7 +49,7 @@ fi
 alias fnu="fn -uu"
 
 # ls color support, if bash_color_check says it's supported
-if [ -n $COLORS_SUPPORTED ]; then
+if [ -n "$COLORS_SUPPORTED" ]; then
     alias ls='ls --color=always'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
