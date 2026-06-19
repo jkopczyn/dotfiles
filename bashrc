@@ -22,6 +22,7 @@ function aws_login {
 # for mars
 LOCAL_BIN=$(realpath ~)/bin
 pathadd $LOCAL_BIN
+pathprepend /usr/local/go/bin
 
 
 # Patches for tmux
