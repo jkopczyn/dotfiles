@@ -197,6 +197,58 @@ alias gco="git checkout"
   # alias gcom="git -c advice.detachedHead=false checkout origin/master || git -c advice.detachedHead=false checkout m/master || git -c advice.detachedHead=false checkout cros/master"
   alias gcob="git checkout -b"
   alias gcb="git checkout -b"
+  function _wt_for_branch {
+    # print the worktree path checked out to branch $1, if any
+    git worktree list --porcelain 2>/dev/null | awk -v b="refs/heads/$1" '
+      /^worktree / { wt = substr($0, 10) }
+      /^branch /   { if ($2 == b) { print wt; exit } }
+    '
+  }
+  function _git_repo_root {
+    # the main repo root, regardless of which worktree we're currently in
+    dirname "$(git rev-parse --path-format=absolute --git-common-dir)"
+  }
+  function gcw {
+    # cd to the worktree checked out to branch $1 (like gc, but for worktrees)
+    if [ -z "$1" ]; then
+      echo "usage: gcw <branch>" >&2
+      return 1
+    fi
+    local wt_path
+    wt_path=$(_wt_for_branch "$1")
+    if [ -n "$wt_path" ]; then
+      cda "$wt_path"
+      return
+    fi
+    if git show-ref --verify --quiet "refs/heads/$1"; then
+      echo "gcw: no worktree checked out to branch '$1', switching in repo root instead" >&2
+      cda "$(_git_repo_root)" && git checkout "$1"
+      return
+    fi
+    echo "gcw: no worktree or branch '$1'" >&2
+    git worktree list 2>/dev/null >&2
+    return 1
+  }
+  function gcwb {
+    # cd to the worktree checked out to branch $1, creating the branch and/or worktree if needed
+    if [ -z "$1" ]; then
+      echo "usage: gcwb <branch>" >&2
+      return 1
+    fi
+    local wt_path
+    wt_path=$(_wt_for_branch "$1")
+    if [ -n "$wt_path" ]; then
+      cda "$wt_path"
+      return
+    fi
+    local new_wt="$(_git_repo_root)/.worktrees/$1"
+    if git show-ref --verify --quiet "refs/heads/$1"; then
+      git worktree add "$new_wt" "$1" || return
+    else
+      git worktree add "$new_wt" -b "$1" || return
+    fi
+    cda "$new_wt"
+  }
 alias gim="git commit -m"
 alias gir="git reset"
 alias gl="git log"
