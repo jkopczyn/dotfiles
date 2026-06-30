@@ -1,9 +1,11 @@
 #!/bin/bash
-response=$(curl -u 'jkopczyn' https://api.github.com/user/repos -d "{\"name\":\"${1:-${PWD##*/}}\"}" -w "%{http_code}" --output "/dev/null";)
-printf "%s\n" "$response"
-if [ "201" == "$response" ]
-then
-    git init;
-    git remote add origin git@github.com:jkopczyn/${1:-${PWD##*/}}.git;
-    echo "success!"
-fi
+# Create a GitHub repo for the current directory and wire up the origin remote.
+# Uses the gh CLI's existing authenticated session (gh auth login) rather than
+# raw curl basic auth, which GitHub no longer accepts (causes a 401).
+set -euo pipefail
+
+name="${1:-${PWD##*/}}"
+
+git init
+gh repo create "$name" --private --source=. --remote=origin
+echo "success!"
